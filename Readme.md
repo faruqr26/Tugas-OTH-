@@ -61,6 +61,79 @@ SS OUTPUT :
 16.return 0; // Mengembalikan 0 sebagai kode keluaran yang menandakan program berakhir tanpa kesalahan
 
 
+SOURCE CODE : 
+
+#include <stdio.h>
+
+// Fungsi untuk mengecek apakah posisi (x, y) valid pada papan catur 8x8
+
+int isValid(int x, int y) {
+
+    return (x >= 0 && x < 8 && y >= 0 && y < 8);
+}
+
+// Fungsi untuk menandai semua langkah yang mungkin dilakukan oleh kuda pada papan catur
+
+void koboImaginaryChess(int i, int j, int size, int *chessBoard) {
+
+    // Langkah-langkah yang mungkin dilakukan oleh kuda
+    
+    int movesX[] = {2, 1, -1, -2, -2, -1, 1, 2};
+    
+    int movesY[] = {1, 2, 2, 1, -1, -2, -2, -1};
+
+    // Menandai setiap langkah yang mungkin dilakukan oleh kuda
+    
+    for (int k = 0; k < 8; k++) {
+    
+        int nextX = i + movesX[k];
+        
+        int nextY = j + movesY[k];
+        
+        if (isValid(nextX, nextY)) {
+        
+            *(chessBoard + nextX * size + nextY) = 1; // Menandai langkah kuda dengan nilai 1
+        }
+    }
+}
+
+int main() {
+
+    int i, j;
+    
+    scanf("%d %d", &i, &j); // Membaca input posisi i dan j
+
+    int size = 8; // Ukuran papan catur
+    
+    int chessBoard[size][size]; // Array 2D untuk papan catur
+
+    // Inisialisasi papan catur dengan nilai awal 0
+    
+    for (int x = 0; x < size; x++) {
+    
+        for (int y = 0; y < size; y++) {
+        
+            chessBoard[x][y] = 0;
+        }
+    }
+
+    koboImaginaryChess(i, j, size, (int *)chessBoard); // Memanggil fungsi untuk menandai langkah kuda
+
+    // Menampilkan papan catur setelah langkah kuda ditandai
+    
+    for (int x = 0; x < size; x++) {
+    
+        for (int y = 0; y < size; y++) {
+        
+            printf("%d ", chessBoard[x][y]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+
 
 
   
