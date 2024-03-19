@@ -82,6 +82,104 @@ PENJELASAN CODE :
 28.return 0; // Mengembalikan 0 sebagai kode keluaran yang menandakan program berakhir tanpa kesalahan
 
 
+SOURCE CODE :
+#include <stdio.h>
+
+#include <stdlib.h>
+
+#include <string.h>
+
+// Fungsi untuk mendapatkan nilai angka dari kartu
+
+int getCardValue(char card) {
+
+    if (card == 'J') return 11;
+    
+    else if (card == 'Q') return 12;
+    
+    else if (card == 'K') return 13;
+    
+    else if (card == '1') return 10;
+    
+    else return (int)(card - '0');
+}
+
+// Fungsi untuk menampilkan urutan kartu
+
+void printCards(char *cards, int length) {
+
+    for (int i = 0; i < length; i++) {
+    
+        printf("%c ", cards[i]);
+    }
+    printf("\n");
+}
+
+// Fungsi untuk mengurutkan kartu
+
+int sortCards(char *cards, int length) {
+
+    int swaps = 0;
+    
+    for (int i = 0; i < length - 1; i++) {
+    
+        int min_idx = i;
+        
+        for (int j = i; j < length; j++) {
+        
+            // Konversi kartu ke nilai angka untuk membandingkan
+            
+            if (getCardValue(cards[j]) < getCardValue(cards[min_idx])) {
+            
+                min_idx = j;
+            }
+        }
+        if (min_idx != i)
+        {
+            char temp = cards[i];
+            
+            cards[i] = cards[min_idx];
+            
+            cards[min_idx] = temp;
+            
+            swaps++;
+
+            printf("Pertukaran %d : ", swaps);
+            
+            printCards(cards, length);
+        }
+        
+    }
+    return swaps;
+}
+
+int main() {
+
+    int n;
+    
+    printf("Masukkan jumlah kartu: ");
+    
+    scanf("%d", &n);
+
+    char cards[n];
+
+    printf("Masukkan nilai kartu (1-10, J, Q, K): ");
+    
+    for (int i = 0; i < n; i++) {
+    
+        scanf(" %c", &cards[i]);
+    }
+
+    int swaps = sortCards(cards, n);
+
+    printf("\nJumlah minimal langkah pertukaran: %d\n", swaps);
+
+    free(cards);
+    
+    return 0;
+}
+
+
     
 
 
